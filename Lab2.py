@@ -44,7 +44,7 @@ class Queries():
 			(19, 'Steven', 'Strange', 'stevenstrange@hotmail.com', 35),
 			(20, 'Bennedict', 'Cumberbatch', 'bennedictcumberbatch@gmail.com', 38);
 
-			
+
 		INSERT INTO singha_salaries 
 		(employee_id, salary) 
 		VALUES
@@ -79,14 +79,19 @@ class Queries():
 
 	def q4(self):
 		return """
-		SELECT DISTINCT employee_id
-		FROM singha_salaries;
+		SELECT *
+		FROM singha_employees
+		WHERE id IS NOT NULL AND
+		first_name IS NOT NULL AND
+		last_name IS NOT NULL AND
+		email IS NOT NULL AND
+		AGE IS NOT NULL;
 	"""
 
 	def q5(self):
 		return """
-		SELECT employee_id
-		FROM singha_salaries;
+		SELECT salary + 8 AS new_salaries 
+		FROM singha_salaries
 		
 	"""
 
@@ -99,6 +104,8 @@ class Queries():
 
 	def q7(self):
 		return """
-		SELECT * FROM singha_employees;
-		
+		SELECT employee_id
+		FROM singha_salaries
+		WHERE salary < 37807
+		LIMIT 13;
 	"""
