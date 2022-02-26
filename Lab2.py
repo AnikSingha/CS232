@@ -11,7 +11,6 @@ class Queries():
 			email VARCHAR(40),
 			age INTEGER
 		);
-
 		CREATE TABLE singha_salaries(
 			employee_id INTEGER REFERENCES singha_employees(id),
 			salary REAL
@@ -45,6 +44,7 @@ class Queries():
 			(19, 'Steven', 'Strange', 'stevenstrange@hotmail.com', 35),
 			(20, 'Bennedict', 'Cumberbatch', 'bennedictcumberbatch@gmail.com', 38);
 
+			
 		INSERT INTO singha_salaries 
 		(employee_id, salary) 
 		VALUES
@@ -102,4 +102,3 @@ class Queries():
 		SELECT * FROM singha_employees;
 		
 	"""
-
