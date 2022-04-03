@@ -73,8 +73,8 @@ class Queries():
 		return """
 		SELECT symbol,
 		CASE
-			WHEN price >= 3557.0 THEN 'SELL'
-			WHEN price < 3557.0 THEN 'BUY'
+			WHEN price >= 3557 THEN 'SELL'
+			WHEN price < 3557 THEN 'BUY'
 		END AS "Action"
 		FROM singha_stocks;
 	"""
