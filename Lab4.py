@@ -80,8 +80,10 @@ class Queries():
 		return """
 		SELECT singha_items.name
 		FROM singha_items, singha_orders
-		GROUP BY singha_items.name
-		HAVING MIN(singha_orders.purchase_date) = singha_orders.purchase_date;
+		WHERE singha_items.id = singha_orders.item_id AND singha_orders.purchase_date = (
+			SELECT MIN(purchase_date)
+			FROM singha_orders
+		);
 	"""
 
 	def q3(self):
@@ -104,16 +106,17 @@ class Queries():
 		return """
 		SELECT email
 		FROM singha_customers, singha_orders
-		GROUP by singha_items.name
-		ORDER BY 
+		WHERE singha_orders.customer_id = (
+			SELECT COUNT(customer_id)
+			FROM singha_orders
+			GROUP BY customer_id
+			LIMIT 1
+		)
+		GROUP by email;
+
 	"""
 
 	def q6(self):
-		return """
-		SELECT * FROM singha_items;
-	"""
-
-	def q7(self):
 		return """
 		SELECT * FROM singha_items;
 	"""
