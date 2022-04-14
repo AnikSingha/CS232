@@ -104,19 +104,25 @@ class Queries():
 
 	def q5(self):
 		return """
-		SELECT email
-		FROM singha_customers, singha_orders
-		WHERE singha_orders.customer_id = (
-			SELECT COUNT(customer_id)
-			FROM singha_orders
-			GROUP BY customer_id
-			LIMIT 1
-		)
-		GROUP by email;
+		SELECT email 
+		FROM singha_customers 
+		WHERE id IN (
+			SELECT customer_id 
+			FROM singha_orders 
+			GROUP BY 1 
+			ORDER BY COUNT(1) DESC LIMIT 1);
 
 	"""
 
 	def q6(self):
 		return """
-		SELECT * FROM singha_items;
+		SELECT customer_id, COUNT(customer_id) AS total_purchases
+		FROM singha_orders 
+		WHERE customer_id NOT IN (
+			SELECT id 
+			FROM singha_customers 
+			WHERE first_name = 'anik'
+			) 
+		GROUP BY (customer_id) 
+		ORDER BY (total_purchases) ASC;
 	"""
