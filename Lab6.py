@@ -1,5 +1,3 @@
-import psycopg2
-
 class Queries():
 	
 	def q1(self):
@@ -71,32 +69,49 @@ class Queries():
 		return """
 		SELECT username, AVG(LENGTH(content))
 		FROM singha_users
-		INNER JOIN singha_posts
+		JOIN singha_posts
 		ON singha_users.id = singha_posts.user_id
-		WHERE username != 'aniksingha'
-		GROUP BY username;
+		GROUP BY username, content
+		HAVING singha_users.username != 'aniksingha';
 	"""
 
 	def q3(self):
 		return """
-		
+		SELECT email, content 
+		FROM singha_users 
+		INNER JOIN singha_posts 
+		ON singha_users.id = singha_posts.user_id 
+		WHERE singha_posts.content LIKE CONCAT('%', singha_users.password, '%')
+		AND singha_users.email LIKE '%.net';
 	"""
 
 	def q4(self):
 		return """
 		SELECT username, email
-		FROM singha_users
-		WHERE LENGTH(username) = 10 AND
-		STRPOS(username,')
+		FROM singha_users 
+		WHERE length(singha_users.username) = 10
+		AND SUBSTRING(singha_users.username, 2, 1) = 'n' 
+		AND SUBSTRING(singha_users.username, 7, 1) = 'n' 
+		AND singha_users.email LIKE '%myhunter.cuny.edu';
 	"""
 
 	def q5(self):
 		return """
-		
+		SELECT email
+		FROM singha_users 
+		INNER JOIN singha_posts 
+		ON singha_users.id = singha_posts.user_id
+		WHERE singha_posts.content 
+		ILIKE UPPER(singha_posts.content) AND NOT (singha_users.email LIKE '%@%');
 	"""
 
 	def q6(self):
 		return """
-		
+		SELECT username, email 
+		FROM singha_users 
+		INNER JOIN singha_posts 
+		ON singha_users.id = singha_posts.user_id 
+		WHERE (LENGTH(singha_posts.content)-LENGTH(REPLACE(singha_posts.content, ' ', '')) + 1) = 
+		(SELECT MAX(LENGTH(singha_posts.content)-LENGTH(REPLACE(singha_posts.content, ' ', '')) + 1) FROM singha_posts);
 	"""
 
